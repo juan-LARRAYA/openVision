@@ -1,307 +1,309 @@
-# 🤖 HF Vision Demo - WebGPU Accelerated AI
+# HuggingFace Vision Demo - React + TypeScript
 
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![React](https://img.shields.io/badge/React-18.3-blue.svg)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue.svg)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF.svg)](https://vitejs.dev/)
 [![Transformers.js](https://img.shields.io/badge/🤗%20Transformers.js-2.17+-blue.svg)](https://huggingface.co/docs/transformers.js)
-[![WebGPU](https://img.shields.io/badge/WebGPU-Enabled-green.svg)](https://gpuweb.github.io/gpuweb/)
-[![License](https://img.shields.io/badge/License-MIT-red.svg)](LICENSE)
+[![WebGPU](https://img.shields.io/badge/WebGPU-Enabled-green.svg)](https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API)
 
-An interactive real-time demo showcasing **3 state-of-the-art computer vision models** from Hugging Face, running **100% client-side** in your browser with **WebGPU acceleration**.
+Aplicación web para probar modelos de visión artificial de HuggingFace directamente en el navegador, construida con React, TypeScript y Transformers.js.
 
-## ✨ Features
+## ✨ Características
 
-- ⚡ **WebGPU Acceleration** - Up to 10x faster inference with GPU
-- 🔌 **100% Offline** - Works completely offline after first load
-- 🎥 **Real-time webcam processing**
-- 🚀 **3 state-of-the-art AI models** in one application
-- 🎨 **Dark minimalist UI** - Clean, modern interface
-- 🔧 **Easy setup** - Just `npm install && npm run dev`
-- 📱 **Cross-platform** - Chrome, Edge, any modern browser
-- 🎯 **Zero-shot classification** with custom prompts
-- 🔐 **Privacy-first** - All processing happens locally, no data sent anywhere
+- ⚡ **WebGPU Acceleration** - Hasta 10x más rápido con aceleración GPU
+- 🔌 **100% Offline** - Funciona completamente offline después de la primera carga
+- 🎯 **TypeScript** - Código type-safe con autocompletado
+- 🧩 **Arquitectura Modular** - Custom hooks, contexts y componentes reutilizables
+- 🎨 **Diseño Minimalista** - Paleta oscura profesional sin gradientes ni efectos
+- 📦 **3 Modelos Incluidos** - ViT, CLIP y DETR listos para usar
+- ➕ **Modelos Personalizados** - Agrega tus propios modelos de HuggingFace
+- 💾 **Persistencia Local** - localStorage para modelos custom
+- 📹 **Tiempo Real** - Inferencia en tiempo real con feed de cámara
 
-## 🎯 Included Models
+## 🚀 Inicio Rápido
 
-### 1. **CLIP** (openai/clip-vit-base-patch32)
-
-![CLIP](https://img.shields.io/badge/Downloads-10M+-brightgreen)
-
-- **What it does**: Zero-shot classification using text and images
-- **Capabilities**: Classifies images using natural language descriptions
-- **Use cases**: Content moderation, image search, flexible categorization
-- **Example**: "a photo of a cat", "a person running", "Italian food"
-
-### 2. **ViT** (google/vit-base-patch16-224)
-
-![ViT](https://img.shields.io/badge/Downloads-5M+-brightgreen)
-
-- **What it does**: Image classification using Vision Transformer
-- **Capabilities**: Classifies images into 1000 ImageNet categories
-- **Use cases**: Object recognition, product categorization, automated tagging
-- **Example**: Identifies specific objects like "Golden Retriever", "laptop", "pizza"
-
-### 3. **DETR** (facebook/detr-resnet-50)
-
-![DETR](https://img.shields.io/badge/Downloads-2M+-brightgreen)
-
-- **What it does**: Object detection using Detection Transformer
-- **Capabilities**: Detects and localizes multiple objects with bounding boxes
-- **Use cases**: Autonomous vehicles, security systems, quality control
-- **Example**: Finds people, cars, animals and draws boxes around them
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- **Node.js 16+** (for development server)
-- **Modern web browser** - Chrome 113+ or Edge 113+ recommended (for WebGPU)
-- **Webcam** (built-in or external)
-- **Internet connection** (for initial model download only)
-
-### 🌐 Live Demo
-
-**Deployed on Vercel:** [https://hf-vision-demo-191r2h6d6-juanlarraya00-gmailcoms-projects.vercel.app](https://hf-vision-demo-191r2h6d6-juanlarraya00-gmailcoms-projects.vercel.app)
-
-No installation required! Just visit the link and start using AI models directly in your browser.
-
-### ⚡ Local Development (Recommended)
+### Instalación
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/juan-LARRAYA/huggin-face.git
-cd huggin-face/hf-vision-demo
-
-# 2. Install dependencies (only once)
+cd hf-vision-demo-react
 npm install
+```
 
-# 3. Start development server
+### Desarrollo
+
+```bash
 npm run dev
 ```
 
-That's it! The app will automatically:
-- ✅ Start a server at `http://localhost:8080`
-- ✅ Open your browser automatically
-- ✅ Show WebGPU status modal
-- ✅ Load models (~430 MB, first time only, ~2-5 minutes)
+La aplicación estará disponible en [http://localhost:8080](http://localhost:8080)
 
-### Alternative: Using Python
+### Build
 
 ```bash
-cd hf-vision-demo
-python3 -m http.server 8080
+npm run build
+npm run preview  # Para previsualizar el build de producción
 ```
 
-Then open `http://localhost:8080`
+## 🏗️ Arquitectura
 
-### First Run
-
-⚠️ **Important**: The first execution will download the models (~430 MB total) directly to your browser. This may take 2-5 minutes depending on your internet connection.
-
-✅ **After that**: Models are cached locally in IndexedDB. The app works **100% offline** and loads in ~10-20 seconds!
-
-## 🎮 How to Use
-
-1. **Allow camera access** when prompted by your browser
-2. **Try each model**:
-
-   - 🔍 **ViT Classifier**: Classifies what the camera sees
-   - 🎯 **CLIP Zero-Shot**: Classifies using predefined categories
-   - 📦 **DETR Object Detection**: Detects and marks objects with boxes
-   - 🎨 **CLIP Custom**: Use your own text prompts
-
-3. **For CLIP Custom**: Write comma-separated prompts like:
-   ```
-   a happy person, an animal, technology, delicious food
-   ```
-
-## 📊 Interface Features
-
-- 🎨 **Modern UI** with gradients and visual effects
-- ⚡ **Real-time processing** using your webcam
-- 🎯 **Interactive visualization** of detections with colored boxes
-- 📈 **Results sorted by confidence**
-- 📱 **Responsive design** that adapts to different screens
-- 🔄 **Live updates** as you move objects in front of the camera
-
-## 🏗️ Architecture
+### Estructura del Proyecto
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Client-Side Browser                      │
-│                                                             │
-│  ┌─────────────────┐    ┌─────────────────┐                │
-│  │   Frontend      │    │ Transformers.js │                │
-│  │   (HTML/JS)     │◄──►│   AI Models     │                │
-│  │                 │    │                 │                │
-│  │ • Camera feed   │    │ • CLIP          │                │
-│  │ • UI controls   │    │ • ViT           │                │
-│  │ • Visualization │    │ • DETR          │                │
-│  └─────────────────┘    └─────────────────┘                │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+src/
+├── components/          # Componentes React
+│   └── ui/             # Componentes de UI (Header, Modal, etc.)
+├── contexts/           # Context providers
+│   ├── TransformersContext.tsx
+│   ├── WebGPUContext.tsx
+│   ├── CameraContext.tsx
+│   ├── ModelsContext.tsx
+│   └── InferenceContext.tsx
+├── hooks/              # Custom React hooks
+│   ├── useTransformers.ts    # Carga Transformers.js
+│   ├── useWebGPU.ts          # Detección WebGPU
+│   ├── useCamera.ts          # Manejo de cámara
+│   ├── useModels.ts          # Carga de modelos
+│   ├── useInference.ts       # Ejecución de inferencia
+│   ├── useCanvas.ts          # Bounding boxes
+│   ├── usePersistedModels.ts # localStorage
+│   └── useModalState.ts      # Estado de modales
+├── types/              # Definiciones TypeScript
+│   ├── models.ts
+│   ├── transformers.ts
+│   ├── webgpu.ts
+│   ├── inference.ts
+│   ├── camera.ts
+│   └── ui.ts
+├── config/             # Configuración
+│   └── models.ts      # Registro de modelos
+├── App.tsx            # Componente principal
+└── main.tsx           # Entry point + providers
 ```
 
-## 🔧 Technical Details
+### Flujo de Datos
 
-- **WebGPU Acceleration**: Hardware-accelerated inference using your GPU (up to 10x faster)
-- **Automatic Fallback**: If WebGPU unavailable, uses WASM/CPU (still functional)
-- **Client-side AI**: All models run directly in your browser using Transformers.js 2.17.2
-- **Model loading**: Automatic download on first run (~430 MB total via CDN)
-- **Offline Support**: Works 100% offline after first load (no Google Fonts, no external dependencies)
-- **Memory usage**: 2-4 GB RAM depending on models loaded
-- **Performance**:
-  - WebGPU: ~0.5-2 seconds per inference
-  - WASM: ~2-5 seconds per inference
-- **Supported formats**: JPEG, PNG images from webcam
-- **Privacy**: All processing happens locally - **ZERO data sent to servers**
-- **Cache**: Models cached in IndexedDB for instant loading
+```
+main.tsx
+  └─> TransformersProvider (carga Transformers.js)
+       └─> WebGPUProvider (detecta WebGPU)
+            └─> CameraProvider (maneja cámara)
+                 └─> ModelsProvider (carga modelos)
+                      └─> InferenceProvider (ejecuta inferencia)
+                           └─> App (orquesta UI)
+```
+
+### Custom Hooks
+
+- **useTransformers** - Carga Transformers.js desde CDN
+- **useWebGPU** - Detecta soporte WebGPU y características
+- **useCamera** - Gestiona stream de cámara y selección de dispositivo
+- **useModels** - Carga/descarga modelos con progreso
+- **useInference** - Ejecuta inferencia con imágenes de video
+- **useCanvas** - Dibuja bounding boxes para detección de objetos
+- **usePersistedModels** - CRUD para modelos custom en localStorage
+- **useModalState** - Controla estado de modales (WebGPU, Config)
+
+## 🎨 CSS Modules
+
+Cada componente tiene su propio módulo CSS para encapsulación:
+
+```tsx
+import styles from './Component.module.css';
+
+export function Component() {
+  return <div className={styles.container}>...</div>;
+}
+```
+
+Las variables CSS globales están en `index.css`:
+
+```css
+:root {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #141414;
+  --accent: #0EA5E9;
+  /* ... */
+}
+```
+
+## 🔧 Configuración
+
+### WebGPU Headers (vite.config.ts)
+
+Los headers CORS son **críticos** para WebGPU:
+
+```ts
+server: {
+  headers: {
+    'Cross-Origin-Embedder-Policy': 'require-corp',
+    'Cross-Origin-Opener-Policy': 'same-origin',
+  }
+}
+```
+
+### Path Aliases (tsconfig.app.json)
+
+```json
+{
+  "paths": {
+    "@/*": ["./src/*"],
+    "@components/*": ["./src/components/*"],
+    "@hooks/*": ["./src/hooks/*"],
+    "@contexts/*": ["./src/contexts/*"],
+    "@/types/*": ["./src/types/*"],
+    "@config/*": ["./src/config/*"]
+  }
+}
+```
+
+### Tipos WebGPU
+
+```bash
+npm install --save-dev @webgpu/types
+```
+
+## 📦 Modelos Disponibles
+
+### Predefinidos
+
+1. **Vision Transformer (ViT)**
+   - Clasificación en 1000 categorías ImageNet
+   - Modelo: `onnx-community/vit-base-patch16-224-in21k`
+
+2. **CLIP**
+   - Clasificación zero-shot con etiquetas custom
+   - Modelo: `Xenova/clip-vit-base-patch32`
+
+3. **DETR**
+   - Detección de objetos con bounding boxes
+   - Modelo: `Xenova/detr-resnet-50`
+
+### Agregar Modelos Personalizados
+
+1. Click en el botón de configuración ⚙️
+2. Completa el formulario:
+   - **ID**: Identificador único (opcional)
+   - **Nombre**: Nombre para mostrar
+   - **Descripción**: Breve descripción
+   - **Ruta**: `usuario/nombre-modelo` de HuggingFace
+   - **Tipo**: image-classification, zero-shot o object-detection
+3. Click en "Agregar Modelo"
+
+Los modelos custom se guardan en localStorage y persisten entre sesiones.
+
+## 🌐 Modo Offline
+
+Después de la primera carga, la aplicación funciona completamente offline:
+
+1. **Modelos**: Cacheados en IndexedDB (~430 MB)
+2. **Fuentes**: System fonts (sin Google Fonts)
+3. **Transformers.js**: Cacheado después de la primera carga
+
+Para verificar:
+1. Ejecuta la app normalmente
+2. Desconecta internet
+3. Refresca la página - debería funcionar
+
+## 🎯 Uso
+
+1. **Permitir Acceso a Cámara** - El navegador pedirá permiso
+2. **Esperar Modal WebGPU** - Muestra si WebGPU está disponible
+3. **Seleccionar Modelo** - Escoge del dropdown (carga automática)
+4. **Ejecutar Inferencia** - Click en "Ejecutar Inferencia"
+5. **Ver Resultados** - Aparecen en el panel derecho
+
+### Para Zero-shot (CLIP)
+
+Las etiquetas por defecto son: `persona, auto, perro, gato, árbol, edificio, comida`
+
+Puedes modificarlas en la configuración del modelo.
+
+### Para Detección de Objetos (DETR)
+
+Los bounding boxes se dibujan automáticamente sobre el video cuando se detectan objetos.
+
+## 🔍 Verificar WebGPU
+
+### En la UI
+- Modal al cargar muestra el estado
+- Badge en resultados muestra backend usado (WebGPU/WASM)
+
+### En Consola
+```
+┌─ Verificando soporte WebGPU...
+├─ Adaptador WebGPU encontrado
+├─ Features: texture-compression-bc, ...
+├─ FP16 support: Sí
+└─ WebGPU completamente funcional
+```
+
+### Navegadores Compatibles
+- Chrome 113+
+- Edge 113+
+- Otros navegadores Chromium actualizados
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### La aplicación no carga
+- Verifica que los headers CORS estén configurados en `vite.config.ts`
+- Ejecuta `npm install` para instalar dependencias
 
-| Problem                   | Solution                                                                                             |
-| ------------------------- | ---------------------------------------------------------------------------------------------------- |
-| 🎥 **Camera not working** | • Check browser permissions<br>• Try a different browser<br>• Ensure camera isn't used by other apps |
-| 🐌 **Slow inference**     | • First run downloads models (normal)<br>• Close other browser tabs<br>• Use a modern device         |
-| 💾 **Out of memory**      | • Close other browser tabs<br>• Use a device with more RAM<br>• Refresh the page                     |
-| 🌐 **Models won't load**  | • Check internet connection<br>• Clear browser cache<br>• Try a different browser                    |
-| 📦 **CORS errors**        | • Use HTTPS or localhost<br>• Don't open HTML file directly<br>• Use a local server                  |
+### WebGPU no funciona
+- Actualiza Chrome/Edge a versión 113+
+- La app funciona con fallback WASM (más lento)
 
-### Performance Tips
+### Cámara no inicia
+- Verifica permisos del navegador
+- Usa HTTPS o localhost (requisito para getUserMedia)
 
-- **Browser Choice**: Chrome and Firefox typically perform best with WebAssembly
-- **Memory Management**: Close unnecessary browser tabs before running
-- **Device**: Modern devices with more RAM will perform better
-- **Network**: Stable internet connection required for first-time model downloads
-- **HTTPS**: Use HTTPS for better performance and security features
+### Modelos no cargan
+- Primera carga requiere internet para descargar modelos
+- Verifica conexión de red
+- Los modelos se cachean para uso offline posterior
 
-## 🎯 Example Use Cases
+## 📄 Scripts
 
-### 🏥 Healthcare
-
-```
-# CLIP prompts for medical imaging
-"normal chest X-ray, pneumonia, fracture, medical equipment"
-```
-
-### 🛒 E-commerce
-
-```
-# Product categorization with ViT
-Automatically classify product images into categories
+```bash
+npm run dev      # Servidor de desarrollo (puerto 8080)
+npm run build    # Build de producción
+npm run preview  # Previsualizar build
+npm run lint     # ESLint
 ```
 
-### 🚗 Autonomous Vehicles
+## 🆚 Comparación con Vanilla JS
 
-```
-# DETR for object detection
-Detect pedestrians, vehicles, traffic signs, road obstacles
-```
+### Ventajas de la Versión React
 
-### 📱 Social Media
+- ✅ **Type Safety** - TypeScript previene errores en tiempo de desarrollo
+- ✅ **Modularidad** - Hooks y contexts reutilizables
+- ✅ **Escalabilidad** - Más fácil agregar features
+- ✅ **Developer Experience** - HMR, autocompletado, mejor debugging
+- ✅ **Testing** - Más fácil testear componentes aislados
 
-```
-# Content moderation with CLIP
-"appropriate content, inappropriate content, violence, safe for work"
-```
+### Misma Funcionalidad
 
-### 🏭 Quality Control
+Ambas versiones tienen exactamente las mismas características:
+- WebGPU acceleration
+- 3 modelos predefinidos
+- Modelos custom
+- Modal WebGPU
+- Panel de configuración
+- Persistencia localStorage
+- Soporte offline 100%
 
-```
-# Manufacturing defect detection
-"defective product, normal product, damaged packaging"
-```
+## 📝 Licencia
 
-## 📊 Model Comparison
+MIT
 
-| Model    | Size   | Speed  | Accuracy  | Best For                           |
-| -------- | ------ | ------ | --------- | ---------------------------------- |
-| **CLIP** | ~600MB | Medium | High      | Flexible classification, zero-shot |
-| **ViT**  | ~350MB | Fast   | Very High | Precise object recognition         |
-| **DETR** | ~170MB | Medium | High      | Object detection, localization     |
+## 🤝 Contribuciones
 
-## 🛠️ Development
-
-### Client-Side Architecture
-
-This application runs entirely in the browser using:
-
-- **Transformers.js** - Client-side AI inference
-- **WebAssembly** - High-performance computation
-- **WebGL** - GPU acceleration when available
-- **Web Workers** - Non-blocking model execution
-
-### Project Structure
-
-```
-hf-vision-demo/
-├── index.html           # Main application entry point
-├── package.json        # Project metadata + npm scripts
-├── vercel.json         # Vercel deployment configuration
-├── css/
-│   └── styles.css      # Dark minimalist theme
-├── js/
-│   ├── main.js         # App initialization & orchestration
-│   ├── models.js       # WebGPU detection & model loading
-│   ├── ui.js           # UI management & updates
-│   ├── config.js       # Model registry & configuration
-│   └── camera.js       # Webcam handling
-├── USAGE.md            # Detailed usage guide
-└── README.md           # This file
-```
-
-### 🚀 Deployment
-
-#### Deploy to Vercel
-
-1. **Fork this repository**
-2. **Connect to Vercel**:
-   - Go to [vercel.com](https://vercel.com)
-   - Import your forked repository
-   - Deploy automatically!
-
-#### Deploy to Netlify
-
-1. **Fork this repository**
-2. **Connect to Netlify**:
-   - Go to [netlify.com](https://netlify.com)
-   - Drag and drop the `hf-vision-demo` folder
-   - Deploy instantly!
-
-#### Deploy to GitHub Pages
-
-1. **Enable GitHub Pages** in repository settings
-2. **Select source**: Deploy from main branch
-3. **Access**: `https://yourusername.github.io/huggin-face/hf-vision-demo/`
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Hugging Face](https://huggingface.co/) for providing the amazing models and transformers library
-- [Transformers.js](https://huggingface.co/docs/transformers.js) for enabling client-side AI inference
-- [OpenAI](https://openai.com/) for CLIP
-- [Google](https://github.com/google-research/vision_transformer) for Vision Transformer
-- [Facebook Research](https://github.com/facebookresearch/detr) for DETR
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [troubleshooting section](#-troubleshooting)
-2. Look at existing [GitHub issues](https://github.com/juan-LARRAYA/huggin-face/issues)
-3. Create a new issue with detailed information
+Las contribuciones son bienvenidas! Por favor:
+1. Fork el repositorio
+2. Crea una rama para tu feature
+3. Commit tus cambios
+4. Push a la rama
+5. Abre un Pull Request
 
 ---
 
-**Made with ❤️ using the top 3 computer vision models from Hugging Face** 🤗
+Desarrollado con [Claude Code](https://claude.com/claude-code)
