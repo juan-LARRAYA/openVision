@@ -1,20 +1,23 @@
-# 🤖 HF Vision Demo - Top 3 Computer Vision Models
+# 🤖 HF Vision Demo - WebGPU Accelerated AI
 
-[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com)
-[![Transformers](https://img.shields.io/badge/🤗%20Transformers-4.44+-yellow.svg)](https://huggingface.co/transformers)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Transformers.js](https://img.shields.io/badge/🤗%20Transformers.js-2.17+-blue.svg)](https://huggingface.co/docs/transformers.js)
+[![WebGPU](https://img.shields.io/badge/WebGPU-Enabled-green.svg)](https://gpuweb.github.io/gpuweb/)
 [![License](https://img.shields.io/badge/License-MIT-red.svg)](LICENSE)
 
-An interactive real-time demo showcasing the **3 most popular computer vision models** from Hugging Face, running directly in your browser using your webcam.
+An interactive real-time demo showcasing **3 state-of-the-art computer vision models** from Hugging Face, running **100% client-side** in your browser with **WebGPU acceleration**.
 
 ## ✨ Features
 
+- ⚡ **WebGPU Acceleration** - Up to 10x faster inference with GPU
+- 🔌 **100% Offline** - Works completely offline after first load
 - 🎥 **Real-time webcam processing**
 - 🚀 **3 state-of-the-art AI models** in one application
-- 🎨 **Modern, responsive web interface**
-- 🔧 **Easy setup and deployment**
-- 📱 **Cross-platform compatibility**
+- 🎨 **Dark minimalist UI** - Clean, modern interface
+- 🔧 **Easy setup** - Just `npm install && npm run dev`
+- 📱 **Cross-platform** - Chrome, Edge, any modern browser
 - 🎯 **Zero-shot classification** with custom prompts
+- 🔐 **Privacy-first** - All processing happens locally, no data sent anywhere
 
 ## 🎯 Included Models
 
@@ -49,9 +52,10 @@ An interactive real-time demo showcasing the **3 most popular computer vision mo
 
 ### Prerequisites
 
-- **Modern web browser** (Chrome, Firefox, Safari, Edge)
+- **Node.js 16+** (for development server)
+- **Modern web browser** - Chrome 113+ or Edge 113+ recommended (for WebGPU)
 - **Webcam** (built-in or external)
-- **Internet connection** (for initial model download)
+- **Internet connection** (for initial model download only)
 
 ### 🌐 Live Demo
 
@@ -59,36 +63,40 @@ An interactive real-time demo showcasing the **3 most popular computer vision mo
 
 No installation required! Just visit the link and start using AI models directly in your browser.
 
-### Local Development
+### ⚡ Local Development (Recommended)
 
-1. **Clone the repository**:
+```bash
+# 1. Clone the repository
+git clone https://github.com/juan-LARRAYA/huggin-face.git
+cd huggin-face/hf-vision-demo
 
-   ```bash
-   git clone https://github.com/juan-LARRAYA/huggin-face.git
-   cd huggin-face/hf-vision-demo
-   ```
+# 2. Install dependencies (only once)
+npm install
 
-2. **Start a local server**:
+# 3. Start development server
+npm run dev
+```
 
-   ```bash
-   # Using Python
-   python -m http.server 8080
+That's it! The app will automatically:
+- ✅ Start a server at `http://localhost:8080`
+- ✅ Open your browser automatically
+- ✅ Show WebGPU status modal
+- ✅ Load models (~430 MB, first time only, ~2-5 minutes)
 
-   # Or using Node.js
-   npx serve .
+### Alternative: Using Python
 
-   # Or using any other static server
-   ```
+```bash
+cd hf-vision-demo
+python3 -m http.server 8080
+```
 
-3. **Access the application**:
-   - Open your browser and go to `http://localhost:8080`
-   - Allow camera access when prompted
-   - Wait for models to load (first time may take a few minutes)
-   - Click any model button to see real-time AI inference!
+Then open `http://localhost:8080`
 
 ### First Run
 
-⚠️ **Important**: The first execution will download the models (~500MB total) directly to your browser. This may take a few minutes depending on your internet connection. Models are cached locally for subsequent visits.
+⚠️ **Important**: The first execution will download the models (~430 MB total) directly to your browser. This may take 2-5 minutes depending on your internet connection.
+
+✅ **After that**: Models are cached locally in IndexedDB. The app works **100% offline** and loads in ~10-20 seconds!
 
 ## 🎮 How to Use
 
@@ -134,13 +142,18 @@ No installation required! Just visit the link and start using AI models directly
 
 ## 🔧 Technical Details
 
-- **Client-side AI**: All models run directly in your browser using Transformers.js
-- **Model loading**: Automatic download on first run (~500MB total)
-- **WebAssembly**: Optimized inference using WASM and WebGL acceleration
-- **Memory usage**: 2-4GB RAM depending on models loaded
-- **Performance**: ~2-5 seconds per inference depending on device
+- **WebGPU Acceleration**: Hardware-accelerated inference using your GPU (up to 10x faster)
+- **Automatic Fallback**: If WebGPU unavailable, uses WASM/CPU (still functional)
+- **Client-side AI**: All models run directly in your browser using Transformers.js 2.17.2
+- **Model loading**: Automatic download on first run (~430 MB total via CDN)
+- **Offline Support**: Works 100% offline after first load (no Google Fonts, no external dependencies)
+- **Memory usage**: 2-4 GB RAM depending on models loaded
+- **Performance**:
+  - WebGPU: ~0.5-2 seconds per inference
+  - WASM: ~2-5 seconds per inference
 - **Supported formats**: JPEG, PNG images from webcam
-- **Privacy**: All processing happens locally - no data sent to servers
+- **Privacy**: All processing happens locally - **ZERO data sent to servers**
+- **Cache**: Models cached in IndexedDB for instant loading
 
 ## 🐛 Troubleshooting
 
@@ -222,11 +235,18 @@ This application runs entirely in the browser using:
 
 ```
 hf-vision-demo/
-├── index.html           # Main application (client-side)
+├── index.html           # Main application entry point
+├── package.json        # Project metadata + npm scripts
 ├── vercel.json         # Vercel deployment configuration
-├── package.json        # Project metadata
-├── backend/            # Legacy server-side code (deprecated)
-├── frontend/           # Legacy frontend (deprecated)
+├── css/
+│   └── styles.css      # Dark minimalist theme
+├── js/
+│   ├── main.js         # App initialization & orchestration
+│   ├── models.js       # WebGPU detection & model loading
+│   ├── ui.js           # UI management & updates
+│   ├── config.js       # Model registry & configuration
+│   └── camera.js       # Webcam handling
+├── USAGE.md            # Detailed usage guide
 └── README.md           # This file
 ```
 
