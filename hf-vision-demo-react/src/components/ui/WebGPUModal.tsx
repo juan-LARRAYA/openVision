@@ -2,31 +2,31 @@
  * WebGPU status modal component
  */
 
-import { useEffect } from 'react';
-import { useModalState } from '@hooks/useModalState';
+import { useState, useEffect } from 'react';
 import { useWebGPUContext } from '@contexts/WebGPUContext';
 import styles from './WebGPUModal.module.css';
 
 export function WebGPUModal() {
-  const { modalState, showWebGPUModal, hideWebGPUModal } = useModalState();
+  const [isOpen, setIsOpen] = useState(false);
   const { webgpuState, checking } = useWebGPUContext();
 
   useEffect(() => {
     if (!checking) {
-      showWebGPUModal(webgpuState.supported, webgpuState.reason);
+      setIsOpen(true);
     }
-  }, [checking, webgpuState.supported, webgpuState.reason, showWebGPUModal]);
+  }, [checking]);
 
-  if (!modalState.webgpuModal.isOpen) {
+  if (!isOpen) {
     return null;
   }
 
-  const { isSupported, reason } = modalState.webgpuModal;
+  const isSupported = webgpuState.supported;
+  const reason = webgpuState.reason;
 
   return (
-    <div className={styles.overlay} onClick={hideWebGPUModal}>
+    <div className={styles.overlay} onClick={() => setIsOpen(false)}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeBtn} onClick={hideWebGPUModal} aria-label="Close">
+        <button className={styles.closeBtn} onClick={() => setIsOpen(false)} aria-label="Close">
           ✕
         </button>
 
@@ -41,8 +41,7 @@ export function WebGPUModal() {
           {isSupported ? (
             <>
               <p className={styles.message}>
-                Tu navegador soporta WebGPU. La inferencia será más rápida utilizando
-                aceleración por GPU.
+                La inferencia será más rápida con aceleración GPU.
               </p>
               {webgpuState.hasFp16 && (
                 <p className={styles.feature}>✓ Soporte FP16 detectado</p>
@@ -51,19 +50,15 @@ export function WebGPUModal() {
           ) : (
             <>
               <p className={styles.message}>
-                WebGPU no está disponible en tu navegador. La aplicación utilizará WASM
-                como fallback (más lento).
+                WebGPU no disponible. Se usará WASM (más lento).
               </p>
-              {reason && <p className={styles.reason}>Razón: {reason}</p>}
-              <p className={styles.hint}>
-                Para usar WebGPU, actualiza a Chrome/Edge 113+ o usa un navegador compatible.
-              </p>
+              {reason && <p className={styles.reason}>{reason}</p>}
             </>
           )}
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.confirmBtn} onClick={hideWebGPUModal}>
+          <button className={styles.confirmBtn} onClick={() => setIsOpen(false)}>
             Entendido
           </button>
         </div>

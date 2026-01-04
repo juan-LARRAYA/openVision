@@ -4,7 +4,6 @@
  */
 
 import { useState, useRef } from 'react';
-import { useModalState } from '@hooks/useModalState';
 import { useCanvas } from '@hooks/useCanvas';
 import { useModelsContext } from '@contexts/ModelsContext';
 import { useInferenceContext } from '@contexts/InferenceContext';
@@ -31,11 +30,11 @@ function App() {
   const [backend, setBackend] = useState<'webgpu' | 'wasm'>('wasm');
   const [processingTime, setProcessingTime] = useState<string>('0.00');
   const [modelType, setModelType] = useState<ModelType | null>(null);
+  const [showConfig, setShowConfig] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const { modalState, showConfigModal, hideConfigModal } = useModalState();
   const { clearCanvas, drawBoundingBoxes } = useCanvas();
   const { getLoadedModel } = useModelsContext();
   const { runInference, isRunning } = useInferenceContext();
@@ -88,7 +87,7 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <Header onConfigClick={() => showConfigModal()} />
+      <Header onConfigClick={() => setShowConfig(true)} />
 
       <main className={styles.main}>
         <div className={styles.container}>
@@ -108,26 +107,30 @@ function App() {
             </button>
           </div>
 
-          <div className={styles.content}>
+          <div className={`${styles.content} ${results ? styles.hasResults : ''}`}>
             <div className={styles.videoContainer}>
               <VideoPreview ref={videoRef} />
               <CanvasOverlay ref={canvasRef} />
             </div>
 
-            <ResultsDisplay
-              results={results}
-              modelType={modelType}
-              backend={backend}
-              processingTime={processingTime}
-            />
+            {results && (
+              <div className={styles.resultsContainer}>
+                <ResultsDisplay
+                  results={results}
+                  modelType={modelType}
+                  backend={backend}
+                  processingTime={processingTime}
+                />
+              </div>
+            )}
           </div>
         </div>
       </main>
 
       <WebGPUModal />
       <ConfigModal
-        isOpen={modalState.configModal.isOpen}
-        onClose={hideConfigModal}
+        isOpen={showConfig}
+        onClose={() => setShowConfig(false)}
       />
     </div>
   );

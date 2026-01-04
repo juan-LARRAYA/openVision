@@ -2,7 +2,6 @@
  * Model selector dropdown component
  */
 
-import { useEffect } from 'react';
 import { useModelsContext } from '@contexts/ModelsContext';
 import { usePersistedModels } from '@hooks/usePersistedModels';
 import { MODEL_REGISTRY } from '@config/models';
@@ -32,18 +31,9 @@ export function ModelSelector({ selectedModelId, onModelSelect, disabled }: Mode
       await loadModel(modelConfig);
       onModelSelect(modelId);
     } catch (err) {
-      console.error('Error loading model:', err);
+      console.error('Error cargando modelo:', err);
     }
   };
-
-  // Load default model on mount
-  useEffect(() => {
-    if (!selectedModelId && Object.keys(allModels).length > 0) {
-      const firstModelId = Object.keys(allModels)[0];
-      const modelConfig = allModels[firstModelId];
-      loadModel(modelConfig).then(() => onModelSelect(firstModelId));
-    }
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -58,7 +48,7 @@ export function ModelSelector({ selectedModelId, onModelSelect, disabled }: Mode
         onChange={handleChange}
         disabled={disabled || !!loadingModel}
       >
-        {!selectedModelId && <option value="">Seleccionar modelo...</option>}
+        <option value="">Seleccionar modelo...</option>
 
         <optgroup label="Modelos Predefinidos">
           {Object.values(MODEL_REGISTRY).map((model: ModelConfig) => (

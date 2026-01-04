@@ -38,15 +38,22 @@ export function useInference(transformers: TransformersModule | null) {
         // Convert to RawImage
         const image = transformers.RawImage.fromCanvas(canvas);
 
-        // Run inference based on model type
+        // Run inference - try with options first, fallback to simple call
         let results;
-        if (loadedPipeline.type === 'zero-shot-image-classification') {
-          const labels = options?.labels || ['object', 'person', 'animal'];
-          results = await loadedPipeline.pipeline(image, labels);
-        } else if (loadedPipeline.type === 'object-detection') {
-          const threshold = options?.threshold || 0.5;
-          results = await loadedPipeline.pipeline(image, { threshold });
-        } else {
+        try {
+          if (loadedPipeline.type === 'zero-shot-image-classification' && options?.labels) {
+            results = await loadedPipeline.pipeline(image, options.labels);
+          } else if (loadedPipeline.type === 'object-detection') {
+            results = await loadedPipeline.pipeline(image, {
+              threshold: options?.threshold || 0.5
+            });
+          } else {
+            // Generic inference - works for most models
+            results = await loadedPipeline.pipeline(image);
+          }
+        } catch (err) {
+          // Fallback: try simple inference without options
+          console.warn('Inference with options failed, trying simple call...', err);
           results = await loadedPipeline.pipeline(image);
         }
 

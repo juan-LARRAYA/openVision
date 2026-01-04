@@ -19,16 +19,6 @@ export function ResultsDisplay({
   backend,
   processingTime,
 }: ResultsDisplayProps) {
-  if (!results) {
-    return (
-      <div className={styles.container}>
-        <p className={styles.placeholder}>
-          Los resultados aparecerán aquí después de ejecutar la inferencia
-        </p>
-      </div>
-    );
-  }
-
   const backendClass = backend === 'webgpu' ? styles.webgpu : styles.wasm;
   const backendLabel = backend === 'webgpu' ? 'WebGPU' : 'WASM';
 
