@@ -1,0 +1,43 @@
+{
+  "name": "browser-ai-vision-models",
+  "version": "2.0.0",
+  "description": "Client-side AI Vision Models - Run popular computer vision models (CLIP, ViT, DETR) directly in the browser using Transformers.js. No server required, complete privacy.",
+  "keywords": [
+    "artificial-intelligence",
+    "computer-vision",
+    "transformers",
+    "huggingface",
+    "browser-ai",
+    "client-side-ai",
+    "machine-learning",
+    "object-detection",
+    "image-classification",
+    "clip",
+    "vit",
+    "detr",
+    "transformers.js",
+    "webcam",
+    "real-time-ai",
+    "zero-shot-learning",
+    "webassembly",
+    "privacy-first"
+  ],
+  "author": "Juan Larraya",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juan-LARRAYA/huggin-face.git"
+  },
+  "homepage": "https://github.com/juan-LARRAYA/huggin-face#readme",
+  "bugs": {
+    "url": "https://github.com/juan-LARRAYA/huggin-face/issues"
+  },
+  "scripts": {
+    "start": "cd hf-vision-demo && python -m http.server 8080",
+    "serve": "cd hf-vision-demo && npx serve .",
+    "dev": "cd hf-vision-demo && python -m http.server 8080"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

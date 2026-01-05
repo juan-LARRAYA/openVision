@@ -145,6 +145,10 @@ temp/
 # Data files
 *.csv
 *.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!vercel.json
 *.xml
 *.xlsx
 *.xls
@@ -320,6 +324,9 @@ cython_debug/
 auto-save-list
 tramp
 .\#*
+
+# Deployment platforms
+.vercel
 
 # Custom project specific
 # Add any project-specific files to ignore here
