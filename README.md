@@ -6,7 +6,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Transformers.js](https://img.shields.io/badge/Transformers.js-2.17+-yellow.svg)](https://huggingface.co/docs/transformers.js)
-[![Live Demo](https://img.shields.io/badge/Live-Demo-success.svg)](https://hf-vision-demo-72gxttula-juanlarraya00-gmailcoms-projects.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-success.svg)](https://open-vision-hf.vercel.app)
 
 ## 🎯 Quick Overview
 
@@ -268,10 +268,10 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🌐 Live Demo
 
-**🚀 [Try OpenVision Live](https://hf-vision-demo-72gxttula-juanlarraya00-gmailcoms-projects.vercel.app)**
+**🚀 [Try OpenVision Live](https://open-vision-hf.vercel.app)**
 
 **Deployment Info:**
 - **Status:** ✅ Live on Vercel
 - **Account:** juanlarraya00@gmail.com
 - **Repository:** [juan-LARRAYA/openVision](https://github.com/juan-LARRAYA/openVision)
-- **Production URL:** https://hf-vision-demo-72gxttula-juanlarraya00-gmailcoms-projects.vercel.app
+- **Production URL:** https://open-vision-hf.vercel.app
