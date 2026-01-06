@@ -23,47 +23,62 @@ This project demonstrates how to run **3 popular computer vision models** entire
 - ✅ Easy deployment (static files only)
 - ✅ No API keys or authentication required
 
-## 🚀 For AI Agents: Quick Start
+## 🚀 Quick Start
 
 ### Project Structure
 ```
 OpenVision/
-├── hf-vision-demo/           # Main application
-│   ├── index.html            # Single-file application (client-side AI)
-│   ├── vercel.json           # Deployment config
-│   ├── README.md             # Detailed documentation
-│   ├── ARCHITECTURE.md       # Technical architecture
-│   ├── API.md                # API reference (legacy)
-│   ├── DEVELOPMENT.md        # Development guide
-│   └── backend/              # Legacy code (not used in current version)
-├── AGENT_GUIDE.md            # Guide specifically for AI agents
+├── hf-vision-demo/           # Main Vite + React application
+│   ├── src/                  # React source code
+│   │   ├── components/       # React components
+│   │   ├── contexts/         # React contexts
+│   │   ├── hooks/            # Custom React hooks
+│   │   └── types/            # TypeScript types
+│   ├── public/               # Static assets
+│   ├── index.html            # HTML entry point
+│   ├── vite.config.ts        # Vite configuration
+│   ├── vercel.json           # Vercel deployment config
+│   ├── package.json          # Dependencies and scripts
+│   └── tsconfig.json         # TypeScript configuration
+├── AGENT_GUIDE.md            # Guide for AI agents
 ├── CONTRIBUTING.md           # Contribution guidelines
 ├── LICENSE                   # MIT License
-└── package.json              # Project metadata
+└── package.json              # Root project metadata
 ```
 
-### Key Information for Agents
+### Tech Stack
 
-**Application Type:** Single-page application (SPA) with embedded AI models
-**Main File:** `/hf-vision-demo/index.html` (self-contained, ~450 lines)
-**Dependencies:** Transformers.js loaded via CDN
-**Deployment:** Static hosting (Vercel, Netlify, GitHub Pages)
+- **Framework:** React 19.2 + TypeScript
+- **Build Tool:** Vite 7.2
+- **AI Library:** Transformers.js (client-side inference)
+- **Styling:** CSS Modules
+- **Deployment:** Vercel
 
-### Essential Commands
+### Local Development
 
 ```bash
 # Clone repository
-git clone https://github.com/juan-LARRAYA/OpenVision.git
-cd OpenVision
+git clone git@github.com:juan-LARRAYA/openVision.git
+cd openVision
 
-# Start local server (option 1 - Python)
-cd hf-vision-demo && python -m http.server 8080
+# Install dependencies
+cd hf-vision-demo
+npm install
 
-# Start local server (option 2 - Node.js)
-cd hf-vision-demo && npx serve .
+# Start development server
+npm run dev
 
-# Access application
-# Open browser to http://localhost:8080
+# Access application at http://localhost:8080
+```
+
+### Build for Production
+
+```bash
+# Build the application
+npm run build
+
+# Preview production build locally
+npm run preview
 ```
 
 ### Architecture Overview
@@ -122,39 +137,62 @@ Comprehensive documentation is available:
 
 ## 🛠️ Technical Stack
 
-- **Frontend:** Vanilla JavaScript (ES6+), HTML5, CSS3
-- **AI Framework:** Transformers.js 2.17+
-- **AI Runtime:** WebAssembly (WASM) + WebGL acceleration
+- **Frontend:** React 19.2 with TypeScript 5.9
+- **Build Tool:** Vite 7.2 (fast HMR, optimized builds)
+- **AI Framework:** Transformers.js 2.17+ (browser-based inference)
+- **AI Runtime:** WebAssembly (WASM) + WebGL/WebGPU acceleration
 - **Browser APIs:** MediaDevices (webcam), Canvas 2D
-- **Deployment:** Static hosting (no build step required)
+- **Styling:** CSS Modules (scoped, modular styles)
+- **Deployment:** Vercel (optimized for SPAs)
 
 ## 🚢 Deployment
 
-### Quick Deploy
+### Vercel Deployment (Recommended)
 
-**Vercel (Recommended):**
+This project is configured for deployment on Vercel:
+
+**Deployment Account:** juanlarraya00@gmail.com
+**Repository:** [https://github.com/juan-LARRAYA/openVision](https://github.com/juan-LARRAYA/openVision)
+
+#### Deploy via Vercel CLI
+
 ```bash
 cd hf-vision-demo
-vercel deploy
+
+# Install Vercel CLI (if not already installed)
+npm i -g vercel
+
+# Deploy to production
+vercel --prod
 ```
+
+#### Deploy via Vercel Dashboard
+
+1. Go to [vercel.com](https://vercel.com)
+2. Import your GitHub repository: `juan-LARRAYA/openVision`
+3. Configure project:
+   - **Framework Preset:** Vite
+   - **Root Directory:** `hf-vision-demo`
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+4. Click "Deploy"
+
+#### Important Configuration
+
+The project includes a [vercel.json](hf-vision-demo/vercel.json) file that configures:
+- CORS headers required for WebGPU/SharedArrayBuffer support
+- SPA routing (all routes redirect to index.html)
+
+### Alternative Deployment Options
 
 **Netlify:**
-```bash
-# Drag and drop the hf-vision-demo folder to netlify.com
-```
+- Root directory: `hf-vision-demo`
+- Build command: `npm run build`
+- Publish directory: `dist`
 
-**GitHub Pages:**
-```bash
-# Enable GitHub Pages in repository settings
-# Set source to main branch
-# Access: https://yourusername.github.io/OpenVision/hf-vision-demo/
-```
-
-### Configuration Files
-
-- **vercel.json** - Configures CORS headers for browser AI
-- **package.json** - Project metadata and scripts
-- No build configuration needed (static files)
+**Other Static Hosts:**
+- Build the project: `npm run build`
+- Deploy the `dist` folder to any static hosting service
 
 ## 🔒 Privacy & Security
 
@@ -226,4 +264,12 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**Made with ❤️ for the AI community** | [Live Demo](https://hf-vision-demo-191r2h6d6-juanlarraya00-gmailcoms-projects.vercel.app)
+**Made with ❤️ for the AI community**
+
+## 🌐 Live Demo
+
+**Deployment Status:** Ready for deployment on Vercel
+**Account:** juanlarraya00@gmail.com
+**Repository:** git@github.com:juan-LARRAYA/openVision.git
+
+*Live demo URL will be available here after deployment*

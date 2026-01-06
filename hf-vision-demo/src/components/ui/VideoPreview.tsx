@@ -41,8 +41,6 @@ export const VideoPreview = forwardRef<HTMLVideoElement, VideoPreviewProps>(
             } else if (ref) {
               ref.current = node;
             }
-            console.log("ref:",ref);
-            console.log("ref.current:",ref.current);
           }}
           className={styles.video}
           autoPlay

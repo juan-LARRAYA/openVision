@@ -28,6 +28,8 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: 'dist',
+    sourcemap: false,
     // Generate unique filenames to bust cache
     rollupOptions: {
       output: {

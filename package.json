@@ -1,7 +1,7 @@
 {
-  "name": "browser-ai-vision-models",
+  "name": "openvision",
   "version": "2.0.0",
-  "description": "Client-side AI Vision Models - Run popular computer vision models (CLIP, ViT, DETR) directly in the browser using Transformers.js. No server required, complete privacy.",
+  "description": "OpenVision - A minimalistic tool for testing AI vision models directly in your browser. Upload Hugging Face models through the UI and try them with complete privacy.",
   "keywords": [
     "artificial-intelligence",
     "computer-vision",
@@ -26,16 +26,17 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/juan-LARRAYA/huggin-face.git"
+    "url": "https://github.com/juan-LARRAYA/openVision.git"
   },
-  "homepage": "https://github.com/juan-LARRAYA/huggin-face#readme",
+  "homepage": "https://github.com/juan-LARRAYA/openVision#readme",
   "bugs": {
-    "url": "https://github.com/juan-LARRAYA/huggin-face/issues"
+    "url": "https://github.com/juan-LARRAYA/openVision/issues"
   },
   "scripts": {
-    "start": "cd hf-vision-demo && python -m http.server 8080",
-    "serve": "cd hf-vision-demo && npx serve .",
-    "dev": "cd hf-vision-demo && python -m http.server 8080"
+    "dev": "cd hf-vision-demo && npm run dev",
+    "build": "cd hf-vision-demo && npm run build",
+    "preview": "cd hf-vision-demo && npm run preview",
+    "lint": "cd hf-vision-demo && npm run lint"
   },
   "engines": {
     "node": ">=14.0.0"
