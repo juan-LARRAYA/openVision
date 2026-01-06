@@ -13,7 +13,7 @@ export function Header({ onConfigClick }: HeaderProps) {
     <header className={styles.header}>
       <div className={styles.logo}>
         <span className={styles.icon}>🤗</span>
-        <h1 className={styles.title}>HuggingFace Vision Demo</h1>
+        <h1 className={styles.title}>HuggingFace Vision Models tester</h1>
       </div>
 
       <div className={styles.actions}>

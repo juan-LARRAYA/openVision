@@ -35,32 +35,59 @@ export function useInference(transformers: TransformersModule | null) {
         const ctx = canvas.getContext('2d');
         ctx?.drawImage(videoElement, 0, 0);
 
-        // Convert to RawImage
-        const image = transformers.RawImage.fromCanvas(canvas);
+        // Prepare image input - try multiple methods for compatibility
+        let imageInput: any = canvas;
+
+        // Try to use RawImage if available (preferred method)
+        if (transformers.RawImage && typeof transformers.RawImage.fromCanvas === 'function') {
+          try {
+            imageInput = await transformers.RawImage.fromCanvas(canvas);
+            console.log('✓ Using RawImage from canvas');
+          } catch (e) {
+            console.log('⚠ RawImage.fromCanvas failed, using canvas directly:', e);
+            imageInput = canvas;
+          }
+        } else {
+          console.log('⚠ RawImage not available, using canvas directly');
+          imageInput = canvas;
+        }
 
         // Run inference - try with options first, fallback to simple call
         let results;
         try {
           if (loadedPipeline.type === 'zero-shot-image-classification' && options?.labels) {
-            results = await loadedPipeline.pipeline(image, options.labels);
+            results = await loadedPipeline.pipeline(imageInput, options.labels);
           } else if (loadedPipeline.type === 'object-detection') {
-            results = await loadedPipeline.pipeline(image, {
+            results = await loadedPipeline.pipeline(imageInput, {
               threshold: options?.threshold || 0.5
             });
           } else {
             // Generic inference - works for most models
-            results = await loadedPipeline.pipeline(image);
+            results = await loadedPipeline.pipeline(imageInput);
           }
         } catch (err) {
           // Fallback: try simple inference without options
           console.warn('Inference with options failed, trying simple call...', err);
-          results = await loadedPipeline.pipeline(image);
+          try {
+            results = await loadedPipeline.pipeline(imageInput);
+          } catch (err2) {
+            // Last resort: try with image URL
+            console.warn('Inference with canvas failed, trying with data URL...', err2);
+            const imageUrl = canvas.toDataURL('image/jpeg');
+            results = await loadedPipeline.pipeline(imageUrl);
+          }
         }
 
         const endTime = performance.now();
         const processingTime = ((endTime - startTime) / 1000).toFixed(2);
 
         console.log(`✓ ${loadedPipeline.modelId} completado en ${processingTime}s`);
+        console.log('📊 Raw results structure:', {
+          type: typeof results,
+          isArray: Array.isArray(results),
+          keys: results ? Object.keys(results) : [],
+          sample: results
+        });
 
         return {
           modelId: loadedPipeline.modelId,

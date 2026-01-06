@@ -3,7 +3,7 @@
  * Orchestrates the HuggingFace Vision Demo application
  */
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useCanvas } from '@hooks/useCanvas';
 import { useModelsContext } from '@contexts/ModelsContext';
 import { useInferenceContext } from '@contexts/InferenceContext';
@@ -24,6 +24,9 @@ import {
 
 import styles from './App.module.css';
 
+// Default model ID to preload
+const DEFAULT_MODEL_ID = 'yolov9t';
+
 function App() {
   const [selectedModelId, setSelectedModelId] = useState<string | null>(null);
   const [results, setResults] = useState<PipelineResult | null>(null);
@@ -36,20 +39,54 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const { clearCanvas, drawBoundingBoxes } = useCanvas();
-  const { getLoadedModel } = useModelsContext();
+  const { getLoadedModel, loadModel } = useModelsContext();
   const { runInference, isRunning } = useInferenceContext();
   const { getAllModels } = usePersistedModels();
 
   const allModels = getAllModels(MODEL_REGISTRY);
 
+  // Preload default model on mount
+  useEffect(() => {
+    const preloadDefaultModel = async () => {
+      const defaultModel = allModels[DEFAULT_MODEL_ID];
+      if (defaultModel) {
+        console.log(`🚀 Precargando modelo por defecto: ${DEFAULT_MODEL_ID}`);
+        try {
+          await loadModel(defaultModel);
+          setSelectedModelId(DEFAULT_MODEL_ID);
+          console.log(`✓ Modelo ${DEFAULT_MODEL_ID} precargado exitosamente`);
+        } catch (err) {
+          console.error(`✗ Error precargando modelo ${DEFAULT_MODEL_ID}:`, err);
+        }
+      }
+    };
+
+    preloadDefaultModel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
+
   const handleRunInference = async () => {
+    console.log('🔍 handleRunInference called', {
+      selectedModelId,
+      hasVideo: !!videoRef.current,
+      videoWidth: videoRef.current?.videoWidth,
+      videoHeight: videoRef.current?.videoHeight,
+    });
+
     if (!selectedModelId || !videoRef.current) {
+      console.warn('⚠️ Missing requirements:', {
+        selectedModelId,
+        hasVideo: !!videoRef.current,
+      });
       return;
     }
 
     const loadedPipeline = getLoadedModel(selectedModelId);
+    console.log('🔍 Loaded pipeline:', loadedPipeline);
+
     if (!loadedPipeline) {
-      console.error('Model not loaded');
+      console.error('❌ Model not loaded:', selectedModelId);
+      alert(`Modelo ${selectedModelId} no está cargado. Por favor, selecciona un modelo primero.`);
       return;
     }
 
@@ -62,7 +99,11 @@ function App() {
         ? { threshold: 0.5 }
         : undefined;
 
+      console.log('▶️ Ejecutando inferencia...', { modelConfig, options });
+
       const result = await runInference(loadedPipeline, videoRef.current, options);
+
+      console.log('✅ Inferencia completada:', result);
 
       setResults(result.results);
       setBackend(result.backend);
@@ -81,7 +122,8 @@ function App() {
         clearCanvas(canvasRef.current);
       }
     } catch (err) {
-      console.error('Error running inference:', err);
+      console.error('❌ Error running inference:', err);
+      alert(`Error ejecutando inferencia: ${err instanceof Error ? err.message : String(err)}`);
     }
   };
 
@@ -132,6 +174,30 @@ function App() {
         isOpen={showConfig}
         onClose={() => setShowConfig(false)}
       />
+
+      <footer className={styles.footer}>
+        <p>
+          Desarrollado con ♥️ desde Argentina por Juan Cruz Larraya
+        </p>
+        <div className={styles.footerLinks}>
+          <a
+            href="https://www.linkedin.com/in/juan-cruz-larraya/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://github.com/juan-LARRAYA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            GitHub
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }

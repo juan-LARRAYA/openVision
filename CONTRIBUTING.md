@@ -1,6 +1,6 @@
-# 🤝 Contributing to HF Vision Demo
+# 🤝 Contributing to OpenVision
 
-Thank you for your interest in contributing to the HF Vision Demo project! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to the OpenVision project! This document provides guidelines and information for contributors.
 
 ## 📋 Table of Contents
 
@@ -45,10 +45,10 @@ Examples of unacceptable behavior include:
 
 Before contributing, make sure you have:
 
-- Python 3.9+ installed
+- Node.js and npm installed
 - Git for version control
 - A GitHub account
-- Basic knowledge of FastAPI and JavaScript
+- Basic knowledge of React, TypeScript, and Vite
 - Familiarity with computer vision concepts (helpful but not required)
 
 ### First Steps
@@ -56,10 +56,10 @@ Before contributing, make sure you have:
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/huggin-face.git
-   cd huggin-face/hf-vision-demo
+   git clone https://github.com/YOUR_USERNAME/OpenVision.git
+   cd OpenVision/hf-vision-demo
    ```
-3. **Set up the development environment** (see [DEVELOPMENT.md](hf-vision-demo/DEVELOPMENT.md))
+3. **Set up the development environment** (see [Development Setup](#development-setup))
 4. **Create a branch** for your contribution:
    ```bash
    git checkout -b feature/your-feature-name
@@ -108,109 +108,40 @@ Detailed setup instructions are available in [DEVELOPMENT.md](hf-vision-demo/DEV
 
 ```bash
 # Clone and setup
-git clone https://github.com/YOUR_USERNAME/huggin-face.git
-cd huggin-face/hf-vision-demo
-
-# Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+git clone https://github.com/YOUR_USERNAME/OpenVision.git
+cd OpenVision/hf-vision-demo
 
 # Install dependencies
-pip install -r requirements.txt
+npm install
 
 # Start development server
-uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+npm run dev
 ```
+The application will be available at `http://localhost:5173/` (or another port if 5173 is busy).
 
 ## 📏 Coding Standards
 
-### Python Code Style
+### TypeScript/React Code Style
 
-We follow PEP 8 with some modifications:
+We use ESLint to enforce coding standards.
 
 ```bash
-# Format code with Black
-black backend/ *.py
-
-# Lint with flake8
-flake8 backend/ *.py --max-line-length=88
-
-# Type checking with mypy
-mypy backend/main.py
+# Lint with ESLint
+npm run lint
 ```
 
 #### Code Style Guidelines
 
-- **Line length**: Maximum 88 characters
-- **Imports**: Use absolute imports, group by standard/third-party/local
-- **Docstrings**: Use Google-style docstrings
-- **Type hints**: Add type hints for function parameters and returns
-- **Variable names**: Use descriptive names, snake_case for variables and functions
-
-#### Example Code Style
-
-```python
-from typing import List, Dict, Any
-from fastapi import FastAPI, UploadFile, File
-from PIL import Image
-
-
-def process_image(image: Image.Image, model_name: str) -> Dict[str, Any]:
-    """Process an image using the specified model.
-    
-    Args:
-        image: PIL Image object to process
-        model_name: Name of the model to use for processing
-        
-    Returns:
-        Dictionary containing processing results
-        
-    Raises:
-        ValueError: If model_name is not supported
-    """
-    if model_name not in SUPPORTED_MODELS:
-        raise ValueError(f"Unsupported model: {model_name}")
-    
-    # Process image...
-    return {"model": model_name, "results": results}
-```
-
-### JavaScript Code Style
-
-- **ES6+**: Use modern JavaScript features
-- **Const/Let**: Prefer `const` and `let` over `var`
-- **Arrow functions**: Use arrow functions for short functions
-- **Async/Await**: Prefer async/await over promises
-- **Comments**: Add comments for complex logic
-
-#### Example JavaScript Style
-
-```javascript
-// Good
-const captureImage = async () => {
-  try {
-    const blob = await captureBlob();
-    return blob;
-  } catch (error) {
-    console.error('Failed to capture image:', error);
-    throw error;
-  }
-};
-
-// Avoid
-function captureImage() {
-  return captureBlob().then(function(blob) {
-    return blob;
-  }).catch(function(error) {
-    console.log(error);
-  });
-}
-```
+- **Line length**: Maximum 88 characters (enforced by Prettier, if used)
+- **Imports**: Group and sort imports.
+- **Type hints**: Add type hints for function parameters and returns.
+- **Component names**: Use PascalCase for React components.
+- **Variable names**: Use camelCase for variables and functions.
 
 ### HTML/CSS Style
 
 - **Semantic HTML**: Use appropriate HTML5 elements
-- **CSS Classes**: Use descriptive class names
+- **CSS Modules**: Use CSS Modules for component-scoped styles.
 - **Responsive Design**: Ensure mobile compatibility
 - **Accessibility**: Add proper ARIA labels and alt text
 
@@ -221,7 +152,7 @@ function captureImage() {
 1. **Test your changes** thoroughly
 2. **Update documentation** if needed
 3. **Add tests** for new functionality
-4. **Ensure code style** compliance
+4. **Ensure code style** compliance (`npm run lint`)
 5. **Update CHANGELOG** if applicable
 
 ### Pull Request Template
@@ -279,7 +210,7 @@ What actually happens
 
 **Environment**
 - OS: [e.g., macOS 12.0]
-- Python: [e.g., 3.10.0]
+- Node: [e.g., 18.12.0]
 - Browser: [e.g., Chrome 95.0]
 
 **Additional Context**
@@ -343,7 +274,7 @@ Contributors will be recognized in:
 
 ### Getting Help
 
-1. **Check documentation**: README, DEVELOPMENT.md, API.md
+1. **Check documentation**: README, hf-vision-demo/DEVELOPMENT.md
 2. **Search existing issues**: Someone might have asked already
 3. **Create a new issue**: Use appropriate templates
 4. **Join discussions**: Share ideas and get feedback
@@ -361,10 +292,10 @@ New contributors can:
 
 ### Learning Materials
 
-- [FastAPI Tutorial](https://fastapi.tiangolo.com/tutorial/)
-- [Hugging Face Transformers](https://huggingface.co/docs/transformers)
+- [React Documentation](https://react.dev/)
+- [Vite Documentation](https://vitejs.dev/)
+- [Hugging Face Transformers.js](https://huggingface.co/docs/transformers.js)
 - [Git Handbook](https://guides.github.com/introduction/git-handbook/)
-- [Python Style Guide](https://pep8.org/)
 
 ### Tools
 
@@ -374,7 +305,7 @@ New contributors can:
 
 ## 🙏 Thank You
 
-Thank you for contributing to HF Vision Demo! Your contributions help make this project better for everyone.
+Thank you for contributing to OpenVision! Your contributions help make this project better for everyone.
 
 ---
 

@@ -23,6 +23,18 @@ export default defineConfig({
       // Required for WebGPU SharedArrayBuffer support
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',
+      // Disable caching for development to ensure latest code
+      'Cache-Control': 'no-store',
     },
   },
+  build: {
+    // Generate unique filenames to bust cache
+    rollupOptions: {
+      output: {
+        entryFileNames: `assets/[name]-[hash].js`,
+        chunkFileNames: `assets/[name]-[hash].js`,
+        assetFileNames: `assets/[name]-[hash].[ext]`
+      }
+    }
+  }
 })

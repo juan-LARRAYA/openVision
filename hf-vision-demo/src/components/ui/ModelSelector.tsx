@@ -37,10 +37,9 @@ export function ModelSelector({ selectedModelId, onModelSelect, disabled }: Mode
 
   return (
     <div className={styles.container}>
-      <label htmlFor="model-select" className={styles.label}>
-        Modelo:
-      </label>
-
+      <option value="" disabled>
+        Seleccionar modelo a utilizar...
+      </option>
       <select
         id="model-select"
         className={styles.select}
@@ -48,24 +47,24 @@ export function ModelSelector({ selectedModelId, onModelSelect, disabled }: Mode
         onChange={handleChange}
         disabled={disabled || !!loadingModel}
       >
-        <option value="">Seleccionar modelo...</option>
 
-        <optgroup label="Modelos Predefinidos">
-          {Object.values(MODEL_REGISTRY).map((model: ModelConfig) => (
-            <option key={model.id} value={model.id}>
-              {model.label}
-            </option>
-          ))}
-        </optgroup>
+        {Object.values(MODEL_REGISTRY).map((model: ModelConfig) => (
+          <option key={model.id} value={model.id}>
+            {model.label}
+          </option>
+        ))}
 
         {customModels.length > 0 && (
-          <optgroup label="Modelos Personalizados">
+          <>
+            <option disabled className={styles.separator}>
+              ──────────────
+            </option>
             {customModels.map((model) => (
               <option key={model.id} value={model.id}>
                 {model.label}
               </option>
             ))}
-          </optgroup>
+          </>
         )}
       </select>
 

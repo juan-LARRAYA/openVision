@@ -1,6 +1,8 @@
-# Browser AI Vision Models
+# OpenVision
 
-> **Client-Side AI Vision Models** - Run state-of-the-art computer vision models directly in your browser. No backend, no API keys, complete privacy.
+> **OpenVision** is a handy and minimalistic tool for testing new artificial vision models. You can upload your Hugging Face models through the UI and try them out directly in your browser.
+
+![Demo of OpenVision](images/demo.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Transformers.js](https://img.shields.io/badge/Transformers.js-2.17+-yellow.svg)](https://huggingface.co/docs/transformers.js)
@@ -25,7 +27,7 @@ This project demonstrates how to run **3 popular computer vision models** entire
 
 ### Project Structure
 ```
-browser-ai-vision-models/
+OpenVision/
 ├── hf-vision-demo/           # Main application
 │   ├── index.html            # Single-file application (client-side AI)
 │   ├── vercel.json           # Deployment config
@@ -51,8 +53,8 @@ browser-ai-vision-models/
 
 ```bash
 # Clone repository
-git clone https://github.com/juan-LARRAYA/huggin-face.git
-cd huggin-face
+git clone https://github.com/juan-LARRAYA/OpenVision.git
+cd OpenVision
 
 # Start local server (option 1 - Python)
 cd hf-vision-demo && python -m http.server 8080
@@ -145,7 +147,7 @@ vercel deploy
 ```bash
 # Enable GitHub Pages in repository settings
 # Set source to main branch
-# Access: https://yourusername.github.io/huggin-face/hf-vision-demo/
+# Access: https://yourusername.github.io/OpenVision/hf-vision-demo/
 ```
 
 ### Configuration Files
@@ -203,8 +205,8 @@ vercel deploy
 
 ## 📞 Support
 
-- **Issues:** [GitHub Issues](https://github.com/juan-LARRAYA/huggin-face/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/juan-LARRAYA/huggin-face/discussions)
+- **Issues:** [GitHub Issues](https://github.com/juan-LARRAYA/OpenVision/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/juan-LARRAYA/OpenVision/discussions)
 - **Documentation:** Check the docs folder in this repository
 
 ## 🤝 Contributing

@@ -42,10 +42,58 @@ export function ResultsDisplay({
   );
 }
 
-function ClassificationResults({ results }: { results: Array<{ label: string; score: number }> }) {
+function ClassificationResults({ results }: { results: any }) {
+  // Handle different result formats
+  console.log('🔍 Classification results received:', results);
+
+  // If results is null/undefined or not an array
+  if (!results) {
+    return (
+      <div className={styles.list}>
+        <p className={styles.noResults}>No se recibieron resultados</p>
+      </div>
+    );
+  }
+
+  // Convert to array if needed (some models return objects)
+  let resultsArray: Array<{ label: string; score: number }>;
+
+  if (Array.isArray(results)) {
+    resultsArray = results;
+  } else if (typeof results === 'object') {
+    // Check if it's wrapped (e.g., results.data or results[0])
+    if ('data' in results && Array.isArray(results.data)) {
+      resultsArray = results.data;
+    } else if (results[0] && Array.isArray(results[0])) {
+      resultsArray = results[0];
+    } else {
+      // Convert object to array
+      resultsArray = Object.entries(results as Record<string, any>).map(([label, score]) => ({
+        label,
+        score: typeof score === 'number' ? score : 0
+      }));
+    }
+  } else {
+    console.error('❌ Unexpected results format:', results);
+    return (
+      <div className={styles.list}>
+        <p className={styles.noResults}>Formato de resultados inesperado</p>
+      </div>
+    );
+  }
+
+  // Ensure we have valid results
+  if (resultsArray.length === 0) {
+    return (
+      <div className={styles.list}>
+        <p className={styles.noResults}>No se encontraron clasificaciones</p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.list}>
-      {results.slice(0, 5).map((result, index) => (
+      {resultsArray.slice(0, 5).map((result, index) => (
         <div key={index} className={styles.item}>
           <div className={styles.itemHeader}>
             <span className={styles.label}>{result.label}</span>
@@ -66,11 +114,25 @@ function ClassificationResults({ results }: { results: Array<{ label: string; sc
 function ObjectDetectionResults({
   results,
 }: {
-  results: Array<{ label: string; score: number; box: any }>;
+  results: any;
 }) {
+  console.log('🔍 Object detection results received:', results);
+
+  // Handle null/undefined results
+  if (!results) {
+    return (
+      <div className={styles.list}>
+        <p className={styles.noResults}>No se recibieron resultados</p>
+      </div>
+    );
+  }
+
+  // Convert to array if needed
+  let resultsArray: Array<{ label: string; score: number; box?: any }> = Array.isArray(results) ? results : [results];
+
   return (
     <div className={styles.list}>
-      {results.map((result, index) => (
+      {resultsArray.map((result, index) => (
         <div key={index} className={styles.item}>
           <div className={styles.itemHeader}>
             <span className={styles.label}>{result.label}</span>
@@ -78,7 +140,7 @@ function ObjectDetectionResults({
           </div>
         </div>
       ))}
-      {results.length === 0 && (
+      {resultsArray.length === 0 && (
         <p className={styles.noResults}>No se detectaron objetos</p>
       )}
     </div>

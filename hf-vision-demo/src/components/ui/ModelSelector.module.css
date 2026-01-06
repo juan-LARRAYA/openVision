@@ -65,3 +65,12 @@
   font-size: 0.875rem;
   color: var(--text-secondary);
 }
+
+.separator {
+  text-align: center;
+  color: var(--border-color);
+  font-size: 0.75rem;
+  padding: 0.25rem 0;
+  cursor: default;
+  user-select: none;
+}
