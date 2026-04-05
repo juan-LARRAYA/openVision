@@ -39,6 +39,6 @@
     "lint": "cd hf-vision-demo && npm run lint"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=20.19.0"
   }
 }
